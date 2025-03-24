@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoices | Invoice & Contract Management</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>InvoiceHub</span>
+                </div>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="status-badge online"></span>
+                </div>
+                <div class="user-details">
+                    <h3>Alex Johnson</h3>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="invoices.html">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>Invoices</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="contracts.html">
+                            <i class="fas fa-file-signature"></i>
+                            <span>Contracts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-users"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Payments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help & Support</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="current-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span id="current-date">April 21, 2023</span>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search invoices...">
+                    </div>
+                    
+                    <div class="notifications">
+                        <i class="far fa-bell"></i>
+                        <span class="notification-count">3</span>
+                        <div class="notification-dropdown">
+                            <div class="notification-item unread">
+                                <div class="notification-icon">
+                                    <i class="fas fa-file-invoice"></i>
+                                </div>
+                                <div class="notification-details">
+                                    <p>Invoice #1042 is overdue</p>
+                                    <span>2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="notification-details">
+                                    <p>New client registered</p>
+                                    <span>5 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="notification-details">
+                                    <p>Payment received for Invoice #1039</p>
+                                    <span>Yesterday</span>
+                                </div>
+                            </div>
+                            <div class="view-all">
+                                <a href="#">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="invoices-content">
+                <div class="content-header">
+                    <h2>Invoices</h2>
+                    <button class="create-btn" id="create-invoice-btn">
+                        <i class="fas fa-plus"></i> Create Invoice
+                    </button>
+                </div>
+                
+                <div class="filter-wrapper">
+                    <div class="filter-options">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="draft">Draft</button>
+                        <button class="filter-btn" data-filter="sent">Sent</button>
+                        <button class="filter-btn" data-filter="paid">Paid</button>
+                        <button class="filter-btn" data-filter="overdue">Overdue</button>
+                    </div>
+                    <div class="sort-by">
+                        <label for="sort-select">Sort by:</label>
+                        <select id="sort-select">
+                            <option value="date-desc">Date (Newest)</option>
+                            <option value="date-asc">Date (Oldest)</option>
+                            <option value="amount-desc">Amount (Highest)</option>
+                            <option value="amount-asc">Amount (Lowest)</option>
+                            <option value="client">Client Name</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Invoice #</th>
+                                <th>Client</th>
+                                <th>Issue Date</th>
+                                <th>Due Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>INV-1042</td>
+                                <td>Acme Corporation</td>
+                                <td>04/01/2023</td>
+                                <td>04/15/2023</td>
+                                <td>$2,750.00</td>
+                                <td><span class="status-badge overdue">Overdue</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                        <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                        <div class="dropdown">
+                                            <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                            <div class="dropdown-content">
+                                                <a href="#"><i class="fas fa-download"></i> Download PDF</a>
+                                                <a href="#"><i class="fas fa-share"></i> Send to Client</a>
+                                                <a href="#"><i class="fas fa-check-circle"></i> Mark as Paid</a>
+                                                <a href="#" class="danger"><i class="fas fa-trash"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>INV-1041</td>
+                                <td>TechStart Inc.</td>
+                                <td>03/28/2023</td>
+                                <td>04/27/2023</td>
+                                <td>$1,850.00</td>
+                                <td><span class="status-badge sent">Sent</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                        <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                        <div class="dropdown">
+                                            <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                            <div class="dropdown-content">
+                                                <a href="#"><i class="fas fa-download"></i> Download PDF</a>
+                                                <a href="#"><i class="fas fa-share"></i> Send to Client</a>
+                                                <a href="#"><i class="fas fa-check-circle"></i> Mark as Paid</a>
+                                                <a href="#" class="danger"><i class="fas fa-trash"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>INV-1040</td>
+                                <td>Global Services LLC</td>
+                                <td>03/15/2023</td>
+                                <td>04/14/2023</td>
+                                <td>$3,200.00</td>
+                                <td><span class="status-badge paid">Paid</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                        <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                        <div class="dropdown">
+                                            <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                            <div class="dropdown-content">
+                                                <a href="#"><i class="fas fa-download"></i> Download PDF</a>
+                                                <a href="#"><i class="fas fa-share"></i> Send to Client</a>
+                                                <a href="#" class="danger"><i class="fas fa-trash"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>INV-1039</td>
+                                <td>Smith Consulting</td>
+                                <td>03/10/2023</td>
+                                <td>04/09/2023</td>
+                                <td>$950.00</td>
+                                <td><span class="status-badge paid">Paid</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                        <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                        <div class="dropdown">
+                                            <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                            <div class="dropdown-content">
+                                                <a href="#"><i class="fas fa-download"></i> Download PDF</a>
+                                                <a href="#"><i class="fas fa-share"></i> Send to Client</a>
+                                                <a href="#" class="danger"><i class="fas fa-trash"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>INV-1038</td>
+                                <td>Miller Enterprises</td>
+                                <td>02/28/2023</td>
+                                <td>03/30/2023</td>
+                                <td>$1,500.00</td>
+                                <td><span class="status-badge draft">Draft</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                        <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                        <div class="dropdown">
+                                            <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                            <div class="dropdown-content">
+                                                <a href="#"><i class="fas fa-download"></i> Download PDF</a>
+                                                <a href="#"><i class="fas fa-share"></i> Send to Client</a>
+                                                <a href="#"><i class="fas fa-check-circle"></i> Mark as Paid</a>
+                                                <a href="#" class="danger"><i class="fas fa-trash"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination">
+                    <button class="pagination-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <button class="pagination-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Create Invoice Modal -->
+    <div class="modal" id="create-invoice-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Invoice</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="invoice-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="client">Client</label>
+                            <select id="client" required>
+                                <option value="">Select Client</option>
+                                <option value="1">Acme Corporation</option>
+                                <option value="2">TechStart Inc.</option>
+                                <option value="3">Global Services LLC</option>
+                                <option value="4">Smith Consulting</option>
+                                <option value="5">Miller Enterprises</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="invoice-number">Invoice #</label>
+                            <input type="text" id="invoice-number" value="INV-1043" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="issue-date">Issue Date</label>
+                            <input type="date" id="issue-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="due-date">Due Date</label>
+                            <input type="date" id="due-date" required>
+                        </div>
+                    </div>
+                    
+                    <div class="line-items">
+                        <h4>Items</h4>
+                        <div class="line-item-header">
+                            <div>Description</div>
+                            <div>Quantity</div>
+                            <div>Price</div>
+                            <div>Total</div>
+                            <div></div>
+                        </div>
+                        
+                        <div class="line-item">
+                            <div>
+                                <input type="text" placeholder="Item description" required>
+                            </div>
+                            <div>
+                                <input type="number" placeholder="Qty" min="1" value="1" required>
+                            </div>
+                            <div>
+                                <input type="number" placeholder="Price" min="0" step="0.01" required>
+                            </div>
+                            <div>
+                                <span class="line-total">$0.00</span>
+                            </div>
+                            <div>
+                                <button type="button" class="remove-item"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="add-item-btn">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                    </div>
+                    
+                    <div class="form-row invoice-totals">
+                        <div></div>
+                        <div>
+                            <div class="total-row">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">$0.00</span>
+                            </div>
+                            <div class="total-row">
+                                <div class="tax-input">
+                                    <span>Tax:</span>
+                                    <input type="number" id="tax-rate" min="0" max="100" value="0" step="0.1">
+                                    <span>%</span>
+                                </div>
+                                <span id="tax-amount">$0.00</span>
+                            </div>
+                            <div class="total-row grand-total">
+                                <span>Total:</span>
+                                <span id="grand-total">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" rows="3" placeholder="Payment terms, delivery conditions, etc."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="secondary-btn" id="save-draft-btn">Save as Draft</button>
+                        <button type="submit" class="primary-btn">Create & Send Invoice</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/app.js"></script>
+    <script>
+        // Set current date in the header
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { 
+            month: 'long', 
+            day: 'numeric', 
+            year: 'numeric' 
+        });
+        
+        // Invoice modal functionality
+        const createInvoiceBtn = document.getElementById('create-invoice-btn');
+        const createInvoiceModal = document.getElementById('create-invoice-modal');
+        const modalClose = document.querySelector('.modal-close');
+        
+        createInvoiceBtn.addEventListener('click', () => {
+            createInvoiceModal.classList.add('show');
+            // Set default date values
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('issue-date').value = today;
+            
+            const dueDate = new Date();
+            dueDate.setDate(dueDate.getDate() + 30); // Due in 30 days
+            document.getElementById('due-date').value = dueDate.toISOString().split('T')[0];
+        });
+        
+        modalClose.addEventListener('click', () => {
+            createInvoiceModal.classList.remove('show');
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === createInvoiceModal) {
+                createInvoiceModal.classList.remove('show');
+            }
+        });
+        
+        // Filter buttons
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // Here you would filter the invoices based on status
+            });
+        });
+        
+        // Dropdown menu functionality
+        document.addEventListener('click', function(e) {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.contains(e.target)) {
+                    const content = dropdown.querySelector('.dropdown-content');
+                    if (content.classList.contains('show')) {
+                        content.classList.remove('show');
+                    }
+                }
+            });
+            
+            if (e.target.closest('.dropdown')) {
+                const content = e.target.closest('.dropdown').querySelector('.dropdown-content');
+                content.classList.toggle('show');
+            }
+        });
+    </script>
+</body>
+</html> 

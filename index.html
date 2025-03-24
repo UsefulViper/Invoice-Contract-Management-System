@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice & Contract Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="light-theme">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>InvoicePro</span>
+                </div>
+                <button id="collapse-sidebar" class="collapse-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="status-badge online"></span>
+                </div>
+                <div class="user-details">
+                    <h3>Alex Johnson</h3>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#dashboard">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#invoices">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>Invoices</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#contracts">
+                            <i class="fas fa-file-signature"></i>
+                            <span>Contracts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#clients">
+                            <i class="fas fa-users"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#payments">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Payments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#reports">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a href="#settings">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#help">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="date">Today: <span id="current-date">March 21, 2023</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                    <div class="notifications">
+                        <button class="notification-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <div class="notification-dropdown">
+                            <div class="notification-header">
+                                <h3>Notifications</h3>
+                                <button class="mark-all-read">Mark all as read</button>
+                            </div>
+                            <ul class="notification-list">
+                                <li class="unread">
+                                    <div class="notification-icon invoice">
+                                        <i class="fas fa-file-invoice"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>Invoice #INV-2023 is overdue by 3 days</p>
+                                        <span class="time">2 hours ago</span>
+                                    </div>
+                                    <button class="notification-action">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </li>
+                                <li class="unread">
+                                    <div class="notification-icon contract">
+                                        <i class="fas fa-file-signature"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>Contract with TechCorp expires in 5 days</p>
+                                        <span class="time">Yesterday</span>
+                                    </div>
+                                    <button class="notification-action">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </li>
+                                <li class="unread">
+                                    <div class="notification-icon payment">
+                                        <i class="fas fa-credit-card"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>Payment of $3,500 received from Acme Inc.</p>
+                                        <span class="time">2 days ago</span>
+                                    </div>
+                                    <button class="notification-action">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="notification-footer">
+                                <a href="#all-notifications">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="theme-toggle">
+                        <button id="theme-switch">
+                            <i class="fas fa-sun light-icon"></i>
+                            <i class="fas fa-moon dark-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content" id="dashboard-section">
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-info">
+                                <h3>Total Revenue</h3>
+                                <p class="amount">$28,459.75</p>
+                                <p class="change positive">+12.5% <span>from last month</span></p>
+                            </div>
+                            <div class="card-icon revenue">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div class="card-chart">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-info">
+                                <h3>Invoices Sent</h3>
+                                <p class="amount">54</p>
+                                <p class="change positive">+8.3% <span>from last month</span></p>
+                            </div>
+                            <div class="card-icon invoices">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                        <div class="card-chart">
+                            <canvas id="invoicesChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-info">
+                                <h3>Active Contracts</h3>
+                                <p class="amount">27</p>
+                                <p class="change positive">+2 <span>from last month</span></p>
+                            </div>
+                            <div class="card-icon contracts">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                        </div>
+                        <div class="card-chart">
+                            <canvas id="contractsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-info">
+                                <h3>Outstanding</h3>
+                                <p class="amount">$8,215.50</p>
+                                <p class="change negative">-5.2% <span>from last month</span></p>
+                            </div>
+                            <div class="card-icon outstanding">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                        </div>
+                        <div class="card-chart">
+                            <canvas id="outstandingChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Overview Chart -->
+                <div class="chart-section">
+                    <div class="section-header">
+                        <h2>Financial Overview</h2>
+                        <div class="timeframe-select">
+                            <button class="timeframe active" data-timeframe="month">Month</button>
+                            <button class="timeframe" data-timeframe="quarter">Quarter</button>
+                            <button class="timeframe" data-timeframe="year">Year</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="financialOverviewChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Activity and Analytics Widgets -->
+                <div class="dashboard-widgets">
+                    <!-- Recent Activity Widget -->
+                    <div class="widget recent-activity">
+                        <div class="widget-header">
+                            <h2>Recent Activity</h2>
+                            <button class="view-all">View All</button>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon invoice-created">
+                                    <i class="fas fa-plus-circle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h4>New Invoice Created</h4>
+                                    <p>Invoice #INV-2025 for $2,750.00 to TechCorp</p>
+                                    <span class="time">15 minutes ago</span>
+                                </div>
+                                <button class="activity-action">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon payment-received">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h4>Payment Received</h4>
+                                    <p>$3,500.00 for Invoice #INV-2020 from Acme Inc.</p>
+                                    <span class="time">2 hours ago</span>
+                                </div>
+                                <button class="activity-action">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon contract-signed">
+                                    <i class="fas fa-signature"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h4>Contract Signed</h4>
+                                    <p>Service Agreement #SA-103 with Global Systems</p>
+                                    <span class="time">Yesterday</span>
+                                </div>
+                                <button class="activity-action">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon contract-expiring">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h4>Contract Expiring</h4>
+                                    <p>Contract #C-2023-05 with WebDev Co. expires in 5 days</p>
+                                    <span class="time">Yesterday</span>
+                                </div>
+                                <button class="activity-action">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon client-added">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h4>New Client Added</h4>
+                                    <p>Suntech Solutions added to client list</p>
+                                    <span class="time">2 days ago</span>
+                                </div>
+                                <button class="activity-action">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Due Dates Widget -->
+                    <div class="widget upcoming-due-dates">
+                        <div class="widget-header">
+                            <h2>Upcoming Due Dates</h2>
+                            <button class="view-all">View All</button>
+                        </div>
+                        <div class="due-date-list">
+                            <div class="due-date-item invoice">
+                                <div class="due-date-indicator">
+                                    <span class="due-days">2</span>
+                                    <span class="due-label">days</span>
+                                </div>
+                                <div class="due-date-content">
+                                    <h4>Invoice #INV-2022</h4>
+                                    <p>$4,200.00 due from BrightMedia</p>
+                                    <span class="date">March 23, 2023</span>
+                                </div>
+                                <button class="due-date-action">
+                                    <i class="fas fa-bell"></i>
+                                </button>
+                            </div>
+                            <div class="due-date-item contract">
+                                <div class="due-date-indicator">
+                                    <span class="due-days">5</span>
+                                    <span class="due-label">days</span>
+                                </div>
+                                <div class="due-date-content">
+                                    <h4>Contract #C-2023-05</h4>
+                                    <p>Annual service contract with WebDev Co.</p>
+                                    <span class="date">March 26, 2023</span>
+                                </div>
+                                <button class="due-date-action">
+                                    <i class="fas fa-bell"></i>
+                                </button>
+                            </div>
+                            <div class="due-date-item invoice">
+                                <div class="due-date-indicator">
+                                    <span class="due-days">7</span>
+                                    <span class="due-label">days</span>
+                                </div>
+                                <div class="due-date-content">
+                                    <h4>Invoice #INV-2024</h4>
+                                    <p>$1,850.00 due from TechCorp</p>
+                                    <span class="date">March 28, 2023</span>
+                                </div>
+                                <button class="due-date-action">
+                                    <i class="fas fa-bell"></i>
+                                </button>
+                            </div>
+                            <div class="due-date-item payment">
+                                <div class="due-date-indicator">
+                                    <span class="due-days">10</span>
+                                    <span class="due-label">days</span>
+                                </div>
+                                <div class="due-date-content">
+                                    <h4>Monthly Subscription</h4>
+                                    <p>$750.00 recurring payment from Suntech</p>
+                                    <span class="date">March 31, 2023</span>
+                                </div>
+                                <button class="due-date-action">
+                                    <i class="fas fa-bell"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions Section -->
+                <div class="quick-actions-section">
+                    <h2>Quick Actions</h2>
+                    <div class="quick-actions">
+                        <button class="action-btn create-invoice">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>Create Invoice</span>
+                        </button>
+                        <button class="action-btn new-contract">
+                            <i class="fas fa-file-signature"></i>
+                            <span>New Contract</span>
+                        </button>
+                        <button class="action-btn add-client">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Add Client</span>
+                        </button>
+                        <button class="action-btn record-payment">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Record Payment</span>
+                        </button>
+                        <button class="action-btn generate-report">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Generate Report</span>
+                        </button>
+                        <button class="action-btn send-reminder">
+                            <i class="fas fa-bell"></i>
+                            <span>Send Reminder</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Windows -->
+    <div class="modal" id="createInvoiceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Invoice</h2>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="invoiceForm">
+                    <div class="form-group">
+                        <label for="clientSelect">Client</label>
+                        <select id="clientSelect" required>
+                            <option value="" disabled selected>Select a client</option>
+                            <option value="1">TechCorp</option>
+                            <option value="2">Acme Inc.</option>
+                            <option value="3">WebDev Co.</option>
+                            <option value="4">BrightMedia</option>
+                            <option value="5">Suntech Solutions</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="invoiceNumber">Invoice Number</label>
+                            <input type="text" id="invoiceNumber" value="INV-2026" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="invoiceDate">Issue Date</label>
+                            <input type="date" id="invoiceDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dueDate">Due Date</label>
+                            <input type="date" id="dueDate" required>
+                        </div>
+                    </div>
+                    <div class="line-items">
+                        <h3>Line Items</h3>
+                        <table class="line-item-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>Rate</th>
+                                    <th>Amount</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="lineItemsTable">
+                                <tr>
+                                    <td>
+                                        <input type="text" class="item-description" placeholder="Description of service or product">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="item-quantity" value="1" min="1">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="item-rate" value="0.00" step="0.01" min="0">
+                                    </td>
+                                    <td>
+                                        <span class="item-amount">$0.00</span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="remove-line-item">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" id="addLineItemBtn">
+                            <i class="fas fa-plus"></i> Add Line Item
+                        </button>
+                    </div>
+                    <div class="invoice-summary">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax Rate:</span>
+                            <div class="tax-input">
+                                <input type="number" id="taxRate" value="7.5" min="0" max="100">
+                                <span>%</span>
+                            </div>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax Amount:</span>
+                            <span id="taxAmount">$0.00</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="invoiceTotal">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="invoiceNotes">Notes</label>
+                        <textarea id="invoiceNotes" placeholder="Add invoice notes or payment terms"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary-btn" id="saveAsDraftBtn">Save as Draft</button>
+                <button class="btn primary-btn" id="createInvoiceBtn">Create & Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html> 

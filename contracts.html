@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contracts - Invoice and Contract Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>InvoiceHub</span>
+                </div>
+                <button class="collapse-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="status-badge online"></span>
+                </div>
+                <div class="user-details">
+                    <h3>Alex Johnson</h3>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="invoices.html">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>Invoices</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="contracts.html">
+                            <i class="fas fa-file-contract"></i>
+                            <span>Contracts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="clients.html">
+                            <i class="fas fa-users"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="payments.html">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>Payments</span>
+                        </a>
+                    </li>
+                    
+                    <div class="nav-divider"></div>
+                    
+                    <li>
+                        <a href="reports.html">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="help.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help & Support</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <div class="header-left">
+                    <h1>Contracts</h1>
+                    <p class="date">Monday, August 14, 2023</p>
+                </div>
+                
+                <div class="header-right">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search contracts...">
+                    </div>
+                    
+                    <div class="notifications">
+                        <button class="notification-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">2</span>
+                        </button>
+                        
+                        <div class="notification-dropdown">
+                            <div class="notification-header">
+                                <h3>Notifications</h3>
+                                <button class="mark-all-read">Mark all as read</button>
+                            </div>
+                            
+                            <ul class="notification-list">
+                                <!-- Notification items will be dynamically populated -->
+                            </ul>
+                            
+                            <div class="notification-footer">
+                                <a href="#">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-toggle">
+                        <button id="themeToggle">
+                            <i class="fas fa-sun light-icon"></i>
+                            <i class="fas fa-moon dark-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contracts-content">
+                <div class="contracts-header">
+                    <div class="filter-wrapper">
+                        <div class="filters">
+                            <button class="filter-btn active" data-filter="all">All Contracts</button>
+                            <button class="filter-btn" data-filter="active">Active</button>
+                            <button class="filter-btn" data-filter="expiring">Expiring Soon</button>
+                            <button class="filter-btn" data-filter="expired">Expired</button>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn secondary-btn">
+                                <i class="fas fa-filter"></i> Filter
+                            </button>
+                            <button class="btn primary-btn" id="newContractBtn">
+                                <i class="fas fa-plus"></i> New Contract
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contracts-table-container">
+                    <table class="contracts-table">
+                        <thead>
+                            <tr>
+                                <th>Contract #</th>
+                                <th>Client</th>
+                                <th>Title</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Value</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CON-2023-001</td>
+                                <td>ABC Ltd</td>
+                                <td>Website Maintenance Agreement</td>
+                                <td>Jan 1, 2023</td>
+                                <td>Dec 31, 2023</td>
+                                <td>$12,000.00</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <div class="action-menu">
+                                        <button class="action-btn">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="action-dropdown">
+                                            <button><i class="fas fa-eye"></i> View</button>
+                                            <button><i class="fas fa-edit"></i> Edit</button>
+                                            <button><i class="fas fa-file-export"></i> Export</button>
+                                            <button class="danger"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CON-2023-002</td>
+                                <td>XYZ Inc</td>
+                                <td>App Development Project</td>
+                                <td>May 1, 2023</td>
+                                <td>Sep 30, 2023</td>
+                                <td>$15,000.00</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <div class="action-menu">
+                                        <button class="action-btn">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="action-dropdown">
+                                            <button><i class="fas fa-eye"></i> View</button>
+                                            <button><i class="fas fa-edit"></i> Edit</button>
+                                            <button><i class="fas fa-file-export"></i> Export</button>
+                                            <button class="danger"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CON-2023-003</td>
+                                <td>Acme Corp</td>
+                                <td>Digital Marketing Campaign</td>
+                                <td>Apr 1, 2023</td>
+                                <td>Oct 31, 2023</td>
+                                <td>$9,000.00</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td>
+                                    <div class="action-menu">
+                                        <button class="action-btn">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="action-dropdown">
+                                            <button><i class="fas fa-eye"></i> View</button>
+                                            <button><i class="fas fa-edit"></i> Edit</button>
+                                            <button><i class="fas fa-file-export"></i> Export</button>
+                                            <button class="danger"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CON-2023-004</td>
+                                <td>ABC Ltd</td>
+                                <td>SEO Optimization</td>
+                                <td>Mar 15, 2023</td>
+                                <td>Mar 14, 2024</td>
+                                <td>$4,500.00</td>
+                                <td><span class="status-badge expired">Expired</span></td>
+                                <td>
+                                    <div class="action-menu">
+                                        <button class="action-btn">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="action-dropdown">
+                                            <button><i class="fas fa-eye"></i> View</button>
+                                            <button><i class="fas fa-edit"></i> Edit</button>
+                                            <button><i class="fas fa-file-export"></i> Export</button>
+                                            <button class="danger"><i class="fas fa-trash"></i> Delete</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination">
+                    <button class="pagination-btn prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="pagination-numbers">
+                        <button class="pagination-number active">1</button>
+                        <button class="pagination-number">2</button>
+                        <button class="pagination-number">3</button>
+                    </div>
+                    <button class="pagination-btn next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- New Contract Modal -->
+    <div class="modal" id="newContractModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>New Contract</h2>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="contractForm">
+                    <div class="form-group">
+                        <label for="clientId">Client</label>
+                        <select id="clientId" name="clientId" required>
+                            <option value="">Select a client</option>
+                            <option value="1">ABC Ltd</option>
+                            <option value="2">XYZ Inc</option>
+                            <option value="3">Acme Corp</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contractTitle">Contract Title</label>
+                        <input type="text" id="contractTitle" name="title" placeholder="Enter contract title" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate" name="startDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="endDate">End Date</label>
+                            <input type="date" id="endDate" name="endDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="value">Contract Value</label>
+                            <input type="number" id="value" name="value" placeholder="0.00" step="0.01" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" placeholder="Describe the contract terms and conditions"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contractFile">Attach Contract Document</label>
+                        <input type="file" id="contractFile" name="contractFile">
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn secondary-btn" id="cancelContract">Cancel</button>
+                <button type="submit" form="contractForm" class="btn primary-btn">Create Contract</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/app.js"></script>
+    <script>
+        // Contract-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize action menus
+            document.querySelectorAll('.action-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const dropdown = this.nextElementSibling;
+                    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                    
+                    // Hide other dropdown menus
+                    document.querySelectorAll('.action-dropdown').forEach(menu => {
+                        if (menu !== dropdown) {
+                            menu.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.action-dropdown').forEach(menu => {
+                    menu.style.display = 'none';
+                });
+            });
+            
+            // New Contract button event
+            document.getElementById('newContractBtn').addEventListener('click', function() {
+                toggleModal('newContractModal');
+            });
+            
+            // Cancel button event
+            document.getElementById('cancelContract').addEventListener('click', function() {
+                toggleModal('newContractModal', false);
+            });
+            
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelector('.filter-btn.active').classList.remove('active');
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    // In a real app, you would filter the table data here
+                    console.log(`Filter selected: ${filter}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

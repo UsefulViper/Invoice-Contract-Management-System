@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients | Invoice & Contract Management</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>InvoiceHub</span>
+                </div>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="status-badge online"></span>
+                </div>
+                <div class="user-details">
+                    <h3>Alex Johnson</h3>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="invoices.html">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>Invoices</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="contracts.html">
+                            <i class="fas fa-file-signature"></i>
+                            <span>Contracts</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="clients.html">
+                            <i class="fas fa-users"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Payments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help & Support</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="current-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span id="current-date">April 21, 2023</span>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search clients...">
+                    </div>
+                    
+                    <div class="notifications">
+                        <i class="far fa-bell"></i>
+                        <span class="notification-count">3</span>
+                        <div class="notification-dropdown">
+                            <div class="notification-item unread">
+                                <div class="notification-icon">
+                                    <i class="fas fa-file-invoice"></i>
+                                </div>
+                                <div class="notification-details">
+                                    <p>Invoice #1042 is overdue</p>
+                                    <span>2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="notification-details">
+                                    <p>New client registered</p>
+                                    <span>5 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="notification-details">
+                                    <p>Payment received for Invoice #1039</p>
+                                    <span>Yesterday</span>
+                                </div>
+                            </div>
+                            <div class="view-all">
+                                <a href="#">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="clients-content">
+                <div class="content-header">
+                    <h2>Clients</h2>
+                    <button class="create-btn" id="create-client-btn">
+                        <i class="fas fa-plus"></i> Add New Client
+                    </button>
+                </div>
+                
+                <div class="client-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Clients</h3>
+                            <span class="stat-value">18</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Active Invoices</h3>
+                            <span class="stat-value">7</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-signature"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Active Contracts</h3>
+                            <span class="stat-value">5</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Revenue</h3>
+                            <span class="stat-value">$34,250</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-wrapper">
+                    <div class="filter-options">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="active">Active</button>
+                        <button class="filter-btn" data-filter="inactive">Inactive</button>
+                    </div>
+                    <div class="sort-by">
+                        <label for="sort-select">Sort by:</label>
+                        <select id="sort-select">
+                            <option value="name-asc">Name (A-Z)</option>
+                            <option value="name-desc">Name (Z-A)</option>
+                            <option value="recent">Recently Added</option>
+                            <option value="revenue-desc">Revenue (Highest)</option>
+                            <option value="revenue-asc">Revenue (Lowest)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="clients-grid">
+                    <!-- Client Card 1 -->
+                    <div class="client-card">
+                        <div class="client-card-header">
+                            <div class="client-logo">
+                                <span>AC</span>
+                            </div>
+                            <div class="client-status active">Active</div>
+                        </div>
+                        <div class="client-card-body">
+                            <h3 class="client-name">Acme Corporation</h3>
+                            <div class="client-contact">
+                                <i class="fas fa-user"></i>
+                                <span>John Smith</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-envelope"></i>
+                                <span>john@acmecorp.com</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 123-4567</span>
+                            </div>
+                        </div>
+                        <div class="client-card-footer">
+                            <div class="client-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">3</span>
+                                    <span class="metric-label">Invoices</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">2</span>
+                                    <span class="metric-label">Contracts</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">$8,500</span>
+                                    <span class="metric-label">Revenue</span>
+                                </div>
+                            </div>
+                            <div class="client-actions">
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                <div class="dropdown">
+                                    <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                    <div class="dropdown-content">
+                                        <a href="#"><i class="fas fa-file-invoice"></i> Create Invoice</a>
+                                        <a href="#"><i class="fas fa-file-signature"></i> Create Contract</a>
+                                        <a href="#"><i class="fas fa-history"></i> View History</a>
+                                        <a href="#" class="danger"><i class="fas fa-trash"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Client Card 2 -->
+                    <div class="client-card">
+                        <div class="client-card-header">
+                            <div class="client-logo">
+                                <span>TS</span>
+                            </div>
+                            <div class="client-status active">Active</div>
+                        </div>
+                        <div class="client-card-body">
+                            <h3 class="client-name">TechStart Inc.</h3>
+                            <div class="client-contact">
+                                <i class="fas fa-user"></i>
+                                <span>Maria Rodriguez</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-envelope"></i>
+                                <span>maria@techstart.io</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 987-6543</span>
+                            </div>
+                        </div>
+                        <div class="client-card-footer">
+                            <div class="client-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">2</span>
+                                    <span class="metric-label">Invoices</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">1</span>
+                                    <span class="metric-label">Contracts</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">$5,600</span>
+                                    <span class="metric-label">Revenue</span>
+                                </div>
+                            </div>
+                            <div class="client-actions">
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                <div class="dropdown">
+                                    <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                    <div class="dropdown-content">
+                                        <a href="#"><i class="fas fa-file-invoice"></i> Create Invoice</a>
+                                        <a href="#"><i class="fas fa-file-signature"></i> Create Contract</a>
+                                        <a href="#"><i class="fas fa-history"></i> View History</a>
+                                        <a href="#" class="danger"><i class="fas fa-trash"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Client Card 3 -->
+                    <div class="client-card">
+                        <div class="client-card-header">
+                            <div class="client-logo">
+                                <span>GS</span>
+                            </div>
+                            <div class="client-status active">Active</div>
+                        </div>
+                        <div class="client-card-body">
+                            <h3 class="client-name">Global Services LLC</h3>
+                            <div class="client-contact">
+                                <i class="fas fa-user"></i>
+                                <span>David Wilson</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-envelope"></i>
+                                <span>david@globalservices.com</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 456-7890</span>
+                            </div>
+                        </div>
+                        <div class="client-card-footer">
+                            <div class="client-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">4</span>
+                                    <span class="metric-label">Invoices</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">1</span>
+                                    <span class="metric-label">Contracts</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">$12,350</span>
+                                    <span class="metric-label">Revenue</span>
+                                </div>
+                            </div>
+                            <div class="client-actions">
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                <div class="dropdown">
+                                    <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                    <div class="dropdown-content">
+                                        <a href="#"><i class="fas fa-file-invoice"></i> Create Invoice</a>
+                                        <a href="#"><i class="fas fa-file-signature"></i> Create Contract</a>
+                                        <a href="#"><i class="fas fa-history"></i> View History</a>
+                                        <a href="#" class="danger"><i class="fas fa-trash"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Client Card 4 -->
+                    <div class="client-card">
+                        <div class="client-card-header">
+                            <div class="client-logo">
+                                <span>SC</span>
+                            </div>
+                            <div class="client-status inactive">Inactive</div>
+                        </div>
+                        <div class="client-card-body">
+                            <h3 class="client-name">Smith Consulting</h3>
+                            <div class="client-contact">
+                                <i class="fas fa-user"></i>
+                                <span>Sarah Johnson</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-envelope"></i>
+                                <span>sarah@smithconsult.com</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 789-0123</span>
+                            </div>
+                        </div>
+                        <div class="client-card-footer">
+                            <div class="client-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">1</span>
+                                    <span class="metric-label">Invoices</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">0</span>
+                                    <span class="metric-label">Contracts</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">$950</span>
+                                    <span class="metric-label">Revenue</span>
+                                </div>
+                            </div>
+                            <div class="client-actions">
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                <div class="dropdown">
+                                    <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                    <div class="dropdown-content">
+                                        <a href="#"><i class="fas fa-file-invoice"></i> Create Invoice</a>
+                                        <a href="#"><i class="fas fa-file-signature"></i> Create Contract</a>
+                                        <a href="#"><i class="fas fa-history"></i> View History</a>
+                                        <a href="#" class="danger"><i class="fas fa-trash"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Client Card 5 -->
+                    <div class="client-card">
+                        <div class="client-card-header">
+                            <div class="client-logo">
+                                <span>ME</span>
+                            </div>
+                            <div class="client-status active">Active</div>
+                        </div>
+                        <div class="client-card-body">
+                            <h3 class="client-name">Miller Enterprises</h3>
+                            <div class="client-contact">
+                                <i class="fas fa-user"></i>
+                                <span>Robert Miller</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-envelope"></i>
+                                <span>robert@millerenterprises.com</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 234-5678</span>
+                            </div>
+                        </div>
+                        <div class="client-card-footer">
+                            <div class="client-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">2</span>
+                                    <span class="metric-label">Invoices</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">1</span>
+                                    <span class="metric-label">Contracts</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">$6,850</span>
+                                    <span class="metric-label">Revenue</span>
+                                </div>
+                            </div>
+                            <div class="client-actions">
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                <div class="dropdown">
+                                    <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                    <div class="dropdown-content">
+                                        <a href="#"><i class="fas fa-file-invoice"></i> Create Invoice</a>
+                                        <a href="#"><i class="fas fa-file-signature"></i> Create Contract</a>
+                                        <a href="#"><i class="fas fa-history"></i> View History</a>
+                                        <a href="#" class="danger"><i class="fas fa-trash"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Client Card 6 -->
+                    <div class="client-card">
+                        <div class="client-card-header">
+                            <div class="client-logo">
+                                <span>BT</span>
+                            </div>
+                            <div class="client-status inactive">Inactive</div>
+                        </div>
+                        <div class="client-card-body">
+                            <h3 class="client-name">Blue Tech Solutions</h3>
+                            <div class="client-contact">
+                                <i class="fas fa-user"></i>
+                                <span>Lisa Chen</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-envelope"></i>
+                                <span>lisa@bluetech.com</span>
+                            </div>
+                            <div class="client-contact">
+                                <i class="fas fa-phone"></i>
+                                <span>(555) 345-6789</span>
+                            </div>
+                        </div>
+                        <div class="client-card-footer">
+                            <div class="client-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">0</span>
+                                    <span class="metric-label">Invoices</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">0</span>
+                                    <span class="metric-label">Contracts</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">$0</span>
+                                    <span class="metric-label">Revenue</span>
+                                </div>
+                            </div>
+                            <div class="client-actions">
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                <div class="dropdown">
+                                    <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                    <div class="dropdown-content">
+                                        <a href="#"><i class="fas fa-file-invoice"></i> Create Invoice</a>
+                                        <a href="#"><i class="fas fa-file-signature"></i> Create Contract</a>
+                                        <a href="#"><i class="fas fa-history"></i> View History</a>
+                                        <a href="#" class="danger"><i class="fas fa-trash"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pagination">
+                    <button class="pagination-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <button class="pagination-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Create Client Modal -->
+    <div class="modal" id="create-client-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Client</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="client-form">
+                    <div class="form-group">
+                        <label for="client-name">Company Name</label>
+                        <input type="text" id="client-name" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contact-name">Contact Person</label>
+                            <input type="text" id="contact-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-position">Position</label>
+                            <input type="text" id="contact-position">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="client-email">Email</label>
+                            <input type="email" id="client-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client-phone">Phone Number</label>
+                            <input type="tel" id="client-phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="client-website">Website</label>
+                            <input type="url" id="client-website">
+                        </div>
+                        <div class="form-group">
+                            <label for="client-industry">Industry</label>
+                            <select id="client-industry">
+                                <option value="">Select Industry</option>
+                                <option value="technology">Technology</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="finance">Finance</option>
+                                <option value="education">Education</option>
+                                <option value="retail">Retail</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="client-address">Address</label>
+                        <textarea id="client-address" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="client-notes">Notes</label>
+                        <textarea id="client-notes" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Status</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="status" value="active" checked>
+                                <span>Active</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="status" value="inactive">
+                                <span>Inactive</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="secondary-btn" id="cancel-btn">Cancel</button>
+                        <button type="submit" class="primary-btn">Add Client</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/app.js"></script>
+    <script>
+        // Set current date in the header
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { 
+            month: 'long', 
+            day: 'numeric', 
+            year: 'numeric' 
+        });
+        
+        // Client modal functionality
+        const createClientBtn = document.getElementById('create-client-btn');
+        const createClientModal = document.getElementById('create-client-modal');
+        const modalClose = document.querySelector('.modal-close');
+        const cancelBtn = document.getElementById('cancel-btn');
+        
+        createClientBtn.addEventListener('click', () => {
+            createClientModal.classList.add('show');
+        });
+        
+        modalClose.addEventListener('click', () => {
+            createClientModal.classList.remove('show');
+        });
+        
+        cancelBtn.addEventListener('click', () => {
+            createClientModal.classList.remove('show');
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === createClientModal) {
+                createClientModal.classList.remove('show');
+            }
+        });
+        
+        // Filter buttons
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                const clientCards = document.querySelectorAll('.client-card');
+                
+                clientCards.forEach(card => {
+                    const status = card.querySelector('.client-status').classList.contains('active') ? 'active' : 'inactive';
+                    
+                    if (filter === 'all' || filter === status) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Dropdown menu functionality
+        document.addEventListener('click', function(e) {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.contains(e.target)) {
+                    const content = dropdown.querySelector('.dropdown-content');
+                    if (content.classList.contains('show')) {
+                        content.classList.remove('show');
+                    }
+                }
+            });
+            
+            if (e.target.closest('.dropdown')) {
+                const content = e.target.closest('.dropdown').querySelector('.dropdown-content');
+                content.classList.toggle('show');
+            }
+        });
+    </script>
+</body>
+</html> 
